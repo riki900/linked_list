@@ -1,43 +1,51 @@
 require("init")
+local constants = require("constants")
+local mocks = require("mocks")
 
 local linked_list = require("linked_list")
-local constants = require("constants")
 
 -- following to disable warning for assert.are checks
 --- @diagnostic disable: undefined-field
 
-local node1, node2, node3
+local function nodes_length(nodes)
+	local length = 0
+	for _, _ in pairs(nodes) do
+		length = length + 1
+	end
+	return length
+end
 
 describe("linked_list.push_right(node)", function()
 	before_each(function()
 		linked_list.new()
-		node1 = linked_list.new_node("ONE")
-		node1.address = 1
-		node2 = linked_list.new_node("TWO")
-		node2.address = 2
-		node3 = linked_list.new_node("THREE")
-		node3.address = 3
 	end)
 	it("add to empty list", function()
-		linked_list.push_right(node1)
+		linked_list.head = mocks.mock_empty_list.head
+		linked_list.nodes = mocks.mock_empty_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.push_right(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node1.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(1, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.address, linked_list.head, constants.EXPECTED_HEAD)
 	end)
 	it("add to single item list", function()
-		linked_list.push(node1)
-		linked_list.push_right(node2)
+		linked_list.head = mocks.mock_one_item_list.head
+		linked_list.nodes = mocks.mock_one_item_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.push_right(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node2.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(2, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 	end)
 	it("add to two item list", function()
-		linked_list.push(node1)
-		linked_list.push(node2)
-		linked_list.push_right(node3)
+		linked_list.head = mocks.mock_two_item_list.head
+		linked_list.nodes = mocks.mock_two_item_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.push_right(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node3.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(3, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 	end)
 end)
 
@@ -46,32 +54,33 @@ end)
 describe("linked_list.insert_at_tail(node)", function()
 	before_each(function()
 		linked_list.new()
-		node1 = linked_list.new_node("ONE")
-		node1.address = 1
-		node2 = linked_list.new_node("TWO")
-		node2.address = 2
-		node3 = linked_list.new_node("THREE")
-		node3.address = 3
 	end)
 	it("add to empty list", function()
-		linked_list.insert_at_tail(node1)
+		linked_list.head = mocks.mock_empty_list.head
+		linked_list.nodes = mocks.mock_empty_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.insert_at_tail(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node1.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(1, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.address, linked_list.head, constants.EXPECTED_HEAD)
 	end)
 	it("add to single item list", function()
-		linked_list.push(node1)
-		linked_list.insert_at_tail(node2)
+		linked_list.head = mocks.mock_one_item_list.head
+		linked_list.nodes = mocks.mock_one_item_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.insert_at_tail(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node2.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(2, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 	end)
 	it("add to two item list", function()
-		linked_list.push(node1)
-		linked_list.push(node2)
-		linked_list.insert_at_tail(node3)
+		linked_list.head = mocks.mock_two_item_list.head
+		linked_list.nodes = mocks.mock_two_item_list.nodes
+		local new_node = mocks.new_node()
+		linked_list.insert_at_tail(new_node)
 		local node = linked_list.get_last_node()
-		assert.are.equal(node3.value, node.value, constants.EXPECTED_NODE)
-		assert.are.equal(3, linked_list.length(), constants.EXPECTED_LENGTH)
+		assert.are.equal(new_node.value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 	end)
 end)
