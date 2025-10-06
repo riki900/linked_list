@@ -12,18 +12,18 @@ describe("linked_list.is_in_list(search_for)", function()
 		linked_list.new()
 	end)
 	it("empty list returns false", function()
-		linked_list.head = mocks.mock_empty_list.head
-		linked_list.nodes = mocks.mock_empty_list.nodes
+		linked_list.head = mocks.empty_list.head
+		linked_list.nodes = mocks.empty_list.nodes
 		assert.is_false(linked_list.is_in_list("find_me"), constants.EXPECTED_BOOLEAN)
 	end)
 	it("in list returns true", function()
-		linked_list.head = mocks.mock_three_item_list.head
-		linked_list.nodes = mocks.mock_three_item_list.nodes
-		assert.is_true(linked_list.is_in_list(mocks.mock_node2_value), constants.EXPECTED_BOOLEAN)
+		linked_list.head = mocks.three_item_list.head
+		linked_list.nodes = mocks.three_item_list.nodes
+		assert.is_true(linked_list.is_in_list(mocks.node2_value), constants.EXPECTED_BOOLEAN)
 	end)
 	it("not in list returns false", function()
-		linked_list.head = mocks.mock_three_item_list.head
-		linked_list.nodes = mocks.mock_three_item_list.nodes
+		linked_list.head = mocks.three_item_list.head
+		linked_list.nodes = mocks.three_item_list.nodes
 		assert.is_false(linked_list.is_in_list("NOT_IN_LIST"), constants.EXPECTED_BOOLEAN)
 	end)
 end)

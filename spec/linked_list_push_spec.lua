@@ -19,8 +19,8 @@ describe("linked_list.push(node)", function()
 		linked_list.new()
 	end)
 	it("add one item to empty list", function()
-		linked_list.head = mocks.mock_empty_list.head
-		linked_list.nodes = mocks.mock_empty_list.nodes
+		linked_list.head = mocks.empty_list.head
+		linked_list.nodes = mocks.empty_list.nodes
 		local new_node = mocks.new_node()
 		linked_list.push(new_node)
 		assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
@@ -28,8 +28,8 @@ describe("linked_list.push(node)", function()
 		assert.is_true(new_node.next == nil, constants.EXPECTED_NEXT)
 	end)
 	it("add to one item list", function()
-		linked_list.head = mocks.mock_one_item_list.head
-		linked_list.nodes = mocks.mock_one_item_list.nodes
+		linked_list.head = mocks.one_item_list.head
+		linked_list.nodes = mocks.one_item_list.nodes
 		local new_node = mocks.new_node()
 		linked_list.push(new_node)
 		assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
@@ -38,8 +38,8 @@ describe("linked_list.push(node)", function()
 		--assert.is_true(node1.next == nil, constants.EXPECTED_NEXT)
 	end)
 	it("add to two item list", function()
-		linked_list.head = mocks.mock_two_item_list.head
-		linked_list.nodes = mocks.mock_two_item_list.nodes
+		linked_list.head = mocks.two_item_list.head
+		linked_list.nodes = mocks.two_item_list.nodes
 		local new_node = mocks.new_node()
 		linked_list.push(new_node)
 		assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
@@ -56,8 +56,8 @@ describe("linked_list.insert_at_head(node)", function()
 			linked_list.new()
 		end)
 		it("add one item to empty list", function()
-			linked_list.head = mocks.mock_empty_list.head
-			linked_list.nodes = mocks.mock_empty_list.nodes
+			linked_list.head = mocks.empty_list.head
+			linked_list.nodes = mocks.empty_list.nodes
 			local new_node = mocks.new_node()
 			linked_list.push(new_node)
 			assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
@@ -65,8 +65,8 @@ describe("linked_list.insert_at_head(node)", function()
 			assert.are.equal(nil, new_node.next, constants.EXPECTED_NEXT)
 		end)
 		it("add to one item list", function()
-			linked_list.head = mocks.mock_one_item_list.head
-			linked_list.nodes = mocks.mock_one_item_list.nodes
+			linked_list.head = mocks.one_item_list.head
+			linked_list.nodes = mocks.one_item_list.nodes
 			local new_node = mocks.new_node()
 			linked_list.push(new_node)
 			assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
@@ -75,8 +75,8 @@ describe("linked_list.insert_at_head(node)", function()
 			--assert.is_true(node1.next == nil, constants.EXPECTED_NEXT)
 		end)
 		it("add to two item list", function()
-			linked_list.head = mocks.mock_two_item_list.head
-			linked_list.nodes = mocks.mock_two_item_list.nodes
+			linked_list.head = mocks.two_item_list.head
+			linked_list.nodes = mocks.two_item_list.nodes
 			local new_node = mocks.new_node()
 			linked_list.push(new_node)
 			assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)

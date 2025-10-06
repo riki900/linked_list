@@ -12,8 +12,8 @@ describe("linked_list.all_nodes()", function()
 		linked_list.new()
 	end)
 	it("empty list returns nil", function()
-		linked_list.head = mocks.mock_empty_list.head
-		linked_list.nodes = mocks.mock_empty_list.nodes
+		linked_list.head = mocks.empty_list.head
+		linked_list.nodes = mocks.empty_list.nodes
 		local node_count = 0
 		for _ in linked_list.all_nodes() do
 			node_count = node_count + 1
@@ -21,8 +21,8 @@ describe("linked_list.all_nodes()", function()
 		assert.are.equal(0, node_count, constants.EXPECTED_LENGTH)
 	end)
 	it("one item list", function()
-		linked_list.head = mocks.mock_one_item_list.head
-		linked_list.nodes = mocks.mock_one_item_list.nodes
+		linked_list.head = mocks.one_item_list.head
+		linked_list.nodes = mocks.one_item_list.nodes
 		local node_count = 0
 		local current_node_address = 1
 		for node in linked_list.all_nodes() do
@@ -33,8 +33,8 @@ describe("linked_list.all_nodes()", function()
 		assert.are.equal(1, node_count, constants.EXPECTED_LENGTH)
 	end)
 	it("three item list", function()
-		linked_list.head = mocks.mock_three_item_list.head
-		linked_list.nodes = mocks.mock_three_item_list.nodes
+		linked_list.head = mocks.three_item_list.head
+		linked_list.nodes = mocks.three_item_list.nodes
 		local node_count = 0
 		local current_node_address = 1
 		for node in linked_list.all_nodes() do
