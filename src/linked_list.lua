@@ -1,7 +1,4 @@
-local inspect = require("inspect")
 local M = {}
-
-M = {}
 
 function M.new_node(value)
 	local node = {}
@@ -79,7 +76,7 @@ function M.pop_right()
 				M.nodes[node.address] = nil
 				return node
 			else
-				prior_address = node.next
+				prior_address = node.address
 			end
 		end
 		if not node.next then
@@ -87,6 +84,7 @@ function M.pop_right()
 			M.nodes[node.address] = nil
 			return node
 		end
+		prior_address = node.address
 	end
 	error("FATAL. ran past end of list")
 end

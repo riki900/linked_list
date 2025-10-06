@@ -1,0 +1,31 @@
+require("init")
+local constants = require("constants")
+
+local linked_list = require("linked_list")
+
+-- following to disable warning for assert.are checks
+--- @diagnostic disable: undefined-field
+local node1, node2
+describe("linked_list.pop()", function()
+	before_each(function()
+		linked_list.new()
+		node1 = linked_list.new_node("ONE")
+		node2 = linked_list.new_node("TWO")
+	end)
+	it("empty list returns nil", function()
+		assert.is_true(linked_list.pop() == nil, constants.EXPECTED_NODE)
+	end)
+	it("single item list", function()
+		linked_list.push(node1)
+		local node = linked_list.pop()
+		assert.are.equal("ONE", node.value, constants.EXPECTED_NODE)
+		assert.are.equal(0, linked_list.length(), constants.EXPECTED_LENGTH)
+	end)
+	it("two item list", function()
+		linked_list.push(node1)
+		linked_list.push(node2)
+		local node = linked_list.pop()
+		assert.are.equal("TWO", node.value, constants.EXPECTED_NODE)
+		assert.are.equal(1, linked_list.length(), constants.EXPECTED_LENGTH)
+	end)
+end)

@@ -5,6 +5,7 @@ local SPEC_FILE_SUFFIX = "_spec.lua"
 
 local TEST_TEMPLATE = [[
 require("init")
+local constants = require("constants")
 
 local ${module_name} = require("${module_name}")
 
