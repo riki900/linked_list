@@ -116,6 +116,22 @@ function M.is_in_list(search_for)
 	return false
 end
 
+function M.find(search_for)
+	if not M.head then
+		return nil
+	end
+
+	local position = 1
+	for node in M.all_nodes() do
+		if node.value == search_for then
+			return position
+		end
+		position = position + 1
+	end
+
+	return nil
+end
+
 function M.all_nodes()
 	local next_node_address = M.head
 	return function()

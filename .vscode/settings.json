@@ -1,0 +1,13 @@
+{
+    "Lua.diagnostics.globals": [
+        "describe",
+        "it",
+        "setup",
+        "constants",
+        "before_each",
+        "stub"
+    ],
+    "stylua.targetReleaseVersion": "latest",
+    "luacheck.maxNumberOfReports": 1000,
+    "Lua.codeLens.enable": false
+}
