@@ -1,0 +1,30 @@
+require("init")
+
+local linked_list = require("linked_list")
+
+-- following to disable warning for assert.are checks
+--- @diagnostic disable: undefined-field
+local node1, node2, node3
+describe("linked_list.is_in_list(search_for)", function()
+	before_each(function()
+		linked_list.new()
+		node1 = linked_list.new_node("ONE")
+		node2 = linked_list.new_node("TWO")
+		node3 = linked_list.new_node("THREE")
+	end)
+	it("empty list returns false", function()
+		assert.is_false(linked_list.is_in_list("find_me"))
+	end)
+	it("in list returns true", function()
+		linked_list.push(node1)
+		linked_list.push(node2)
+		linked_list.push(node3)
+		assert.is_true(linked_list.is_in_list("ONE"))
+	end)
+	it("not in list returns false", function()
+		linked_list.push(node1)
+		linked_list.push(node2)
+		linked_list.push(node3)
+		assert.is_false(linked_list.is_in_list("NOT_IN_LIST"))
+	end)
+end)
