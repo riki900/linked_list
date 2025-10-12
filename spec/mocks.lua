@@ -3,16 +3,16 @@
 local M = {}
 
 M.head = 1
-M.node1_value = "node 1"
-M.node2_value = "node 2"
-M.mock_node3_value = "node 3"
-M.new_node_value = "new node"
+M.node1 = { value = "node 1", address = 10 }
+M.node2 = { value = "node 2", address = 22 }
+M.node3 = { value = "node 3", address = 33 }
+M.node_to_add = { value = "new node", address = 99 }
 
 function M.new_node()
 	return {
 		next = nil,
-		address = 99,
-		value = M.new_node_value,
+		address = M.node_to_add.address,
+		value = M.node_to_add.value,
 	}
 end
 
@@ -22,49 +22,49 @@ M.empty_list = {
 }
 
 M.one_item_list = {
-	head = 1,
+	head = M.node1.address,
 	nodes = {
-		{
+		[M.node1.address] = {
 			next = nil,
-			address = 1,
-			value = M.node1_value,
+			address = M.node1.address,
+			value = M.node1.value,
 		},
 	},
 }
 
 M.two_item_list = {
-	head = 1,
+	head = M.node1.address,
 	nodes = {
-		{
-			next = 2,
-			address = 1,
-			value = M.node1_value,
+		[M.node1.address] = {
+			next = M.node2.address,
+			address = M.node1.address,
+			value = M.node1.value,
 		},
-		{
+		[M.node2.address] = {
 			next = nil,
-			address = 2,
-			value = M.node2_value,
+			address = M.node2.address,
+			value = M.node2.value,
 		},
 	},
 }
 
 M.three_item_list = {
-	head = 1,
+	head = M.node1.address,
 	nodes = {
-		{
-			next = 2,
-			address = 1,
-			value = M.node1_value,
+		[M.node1.address] = {
+			next = M.node2.address,
+			address = M.node1.address,
+			value = M.node1.value,
 		},
-		{
-			next = 3,
-			address = 2,
-			value = M.node2_value,
+		[M.node2.address] = {
+			next = M.node3.address,
+			address = M.node2.address,
+			value = M.node2.value,
 		},
-		{
+		[M.node3.address] = {
 			next = nil,
-			address = 3,
-			value = M.mock_node3_value,
+			address = M.node3.address,
+			value = M.node3.value,
 		},
 	},
 }

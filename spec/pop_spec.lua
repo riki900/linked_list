@@ -20,23 +20,25 @@ describe("linked_list.pop()", function()
 		linked_list.head = mocks.one_item_list.head
 		linked_list.nodes = mocks.one_item_list.nodes
 		local node = linked_list.pop()
-		assert.are.equal(mocks.node1_value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(mocks.node1.address, node.address, constants.EXPECTED_NODE)
+		assert.are.equal(nil, linked_list.head, constants.EXPECTED_HEAD)
 		assert.are.equal(0, linked_list.length(), constants.EXPECTED_LENGTH)
 	end)
 	it("two item list", function()
 		linked_list.head = mocks.two_item_list.head
 		linked_list.nodes = mocks.two_item_list.nodes
 		local node = linked_list.pop()
-		assert.are.equal(mocks.node1_value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(mocks.node1.address, node.address, constants.EXPECTED_NODE)
+		assert.are.equal(mocks.node2.address, linked_list.head, constants.EXPECTED_HEAD)
 		assert.are.equal(1, linked_list.length(), constants.EXPECTED_LENGTH)
-		assert.are.equal(2, linked_list.head, constants.EXPECTED_HEAD)
+		assert.are.equal(mocks.node2.address, linked_list.head, constants.EXPECTED_HEAD)
 	end)
 	it("three items in list", function()
 		linked_list.head = mocks.three_item_list.head
 		linked_list.nodes = mocks.three_item_list.nodes
 		local node = linked_list.pop()
-		assert.are.equal(mocks.node1_value, node.value, constants.EXPECTED_NODE)
+		assert.are.equal(mocks.node1.address, node.address, constants.EXPECTED_NODE)
 		assert.are.equal(2, linked_list.length(), constants.EXPECTED_LENGTH)
-		assert.are.equal(2, linked_list.head, constants.EXPECTED_HEAD)
+		assert.are.equal(mocks.node2.address, linked_list.head, constants.EXPECTED_HEAD)
 	end)
 end)
