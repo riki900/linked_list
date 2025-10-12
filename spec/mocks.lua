@@ -6,7 +6,7 @@ M.head = 1
 M.node1 = { value = "node 1", address = 10 }
 M.node2 = { value = "node 2", address = 22 }
 M.node3 = { value = "node 3", address = 33 }
-M.node_to_add = { value = "new node", address = 99 }
+M.node_to_add = { value = "new node" }
 
 function M.new_node()
 	return {

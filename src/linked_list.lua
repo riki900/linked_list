@@ -2,21 +2,31 @@ local inspect = require("inspect")
 
 local M = {}
 
-function M.new_node(value)
+function M.alloc_node(value)
 	local node = {}
 	node.next = nil
-	node.address = math.random(999, 9999)
+	node.address = M.malloc()
 	node.value = value
 
 	return node
 end
 
+function M.randomseed()
+	math.randomseed(32768)
+end
+
+function M.malloc()
+	return math.random(999, 9999)
+end
+
 function M.new()
+	M.randomseed()
 	M.head = nil
 	M.nodes = {}
 end
 
-function M.push(node)
+function M.push(value)
+	local node = M.alloc_node(value)
 	if not M.head then
 		M.head = node.address
 	else
@@ -25,10 +35,6 @@ function M.push(node)
 	end
 
 	M.nodes[node.address] = node
-end
-
-function M.insert_at_head(node)
-	M.push(node)
 end
 
 function M.pop()
@@ -52,7 +58,8 @@ function M.length()
 	return length
 end
 
-function M.push_right(node)
+function M.push_right(value)
+	local node = M.alloc_node(value)
 	if not M.head then
 		M.head = node.address
 	else
@@ -62,14 +69,15 @@ function M.push_right(node)
 	M.nodes[node.address] = node
 end
 
-function M.insert_at(node, search_for)
+function M.insert_at(value, search_for)
+	local node = M.alloc_node(value)
 	if not M.head then
-		return "ERROR. Empty list"
+		return false, "ERROR. Empty list"
 	end
 	local prior_address, at_address
 	prior_address = M.head
 	for address in M.traverse() do
-		if M.nodes[address] == search_for then
+		if M.nodes[address].value == search_for then
 			at_address = address
 		else
 			prior_address = address
@@ -77,15 +85,12 @@ function M.insert_at(node, search_for)
 	end
 	-- insertion at node not found
 	if not at_address then
-		return "ERROR. at node not found"
+		return false, "ERROR. at node not found"
 	end
 	node.next = at_address
 	M.nodes[prior_address].next = node.address
 	M.nodes[node.address] = node
-end
-
-function M.insert_at_tail(node)
-	M.push_right(node)
+	return true, nil
 end
 
 function M.pop_right()

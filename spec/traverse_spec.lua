@@ -7,7 +7,7 @@ local linked_list = require("linked_list")
 -- following to disable warning for assert.are checks
 --- @diagnostic disable: undefined-field
 
-describe("linked_list.all_nodes()", function()
+describe("linked_list.traverse()", function()
 	before_each(function()
 		linked_list.new()
 	end)

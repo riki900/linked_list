@@ -9,5 +9,6 @@ M.EXPECTED_NEXT = "expected next pointer"
 M.EXPECTED_ADDRESS = "expected address"
 M.EXPECTED_VALUE = "expected value"
 M.EXPECTED_BOOLEAN = "expected boolean"
+M.EXPECTED_TAIL = "expected tail address"
 
 return M

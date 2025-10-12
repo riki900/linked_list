@@ -12,7 +12,7 @@ local node
 describe("linked_list.new_node(value)", function()
 	before_each(function()
 		linked_list.new()
-		node = linked_list.new_node(NODE_VALUE)
+		node = linked_list.alloc_node(NODE_VALUE)
 	end)
 	it("next is nil", function()
 		assert.are.equal(nil, node.next, constants.EXPECTED_NEXT)
