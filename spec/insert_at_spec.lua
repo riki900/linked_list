@@ -21,8 +21,9 @@ describe("linked_list.insert_at", function()
 	describe("empty list", function()
 		before_each(function()
 			linked_list.new()
-			linked_list.head = mocks.empty_list.head
-			linked_list.nodes = mocks.empty_list.nodes
+			local head, nodes = mocks.empty_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
 		end)
 		it("empty list returns success false", function()
 			local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, mocks.node1.value)
@@ -40,8 +41,9 @@ describe("linked_list.insert_at", function()
 	describe("single item list", function()
 		before_each(function()
 			linked_list.new()
-			linked_list.head = mocks.one_item_list.head
-			linked_list.nodes = mocks.one_item_list.nodes
+			local head, nodes = mocks.one_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
 		end)
 		it("returns a new node", function()
 			local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, mocks.node1.value)
@@ -68,8 +70,9 @@ describe("linked_list.insert_at", function()
 	describe("errors when insertion point not found", function()
 		before_each(function()
 			linked_list.new()
-			linked_list.head = mocks.three_item_list.head
-			linked_list.nodes = mocks.three_item_list.nodes
+			local head, nodes = mocks.three_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
 		end)
 		it("returned node is nil", function()
 			local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, " ")
@@ -83,8 +86,9 @@ describe("linked_list.insert_at", function()
 	describe("insert at last node", function()
 		before_each(function()
 			linked_list.new()
-			linked_list.head = mocks.three_item_list.head
-			linked_list.nodes = mocks.three_item_list.nodes
+			local head, nodes = mocks.three_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
 		end)
 		it("returns a new node", function()
 			local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, mocks.node3.value)
@@ -114,19 +118,17 @@ describe("linked_list.insert_at", function()
 			assert.are.equal(4, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 		end)
 	end)
-
 	describe("insert into middle of list", function()
 		before_each(function()
 			linked_list.new()
-			linked_list.head = mocks.three_item_list.head
-			linked_list.nodes = mocks.three_item_list.nodes
-			print(inspect(mocks))
+			local head, nodes = mocks.three_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
 		end)
 		it("returns a new node", function()
-			--local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, mocks.node3.value)
+			local added_node, _ = linked_list.insert_at(mocks.node_to_add.value, mocks.node3.value)
 			assert.is_not_nil(added_node, constants.EXPECTED_NODE)
 		end)
-		--[====[
 		it("no error returned", function()
 			local _, err = linked_list.insert_at(mocks.node_to_add.value, mocks.node3.value)
 			assert.is_nil(err, constants.EXPECTED_ERROR)
@@ -150,6 +152,5 @@ describe("linked_list.insert_at", function()
 			linked_list.insert_at(mocks.node_to_add.value, mocks.node1.value)
 			assert.are.equal(4, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 		end)
-		--]====]
 	end)
 end)

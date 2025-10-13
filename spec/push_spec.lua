@@ -16,46 +16,80 @@ local function nodes_length(nodes)
 	return length
 end
 describe("linked_list.push(node)", function()
-	before_each(function()
-		linked_list.new()
+	describe("empty list", function()
+		before_each(function()
+			linked_list.new()
+			local head, nodes = mocks.empty_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
+		end)
+		it("node is in list", function()
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.is_not_nil(linked_list.nodes[node.address], constants.EXPECTED_NODE)
+		end)
+		it("node.next is nil", function()
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.is_nil(node.next, constants.EXPECTED_NEXT)
+		end)
+		it("head is set", function()
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
+		end)
+		it("length is 1", function()
+			local _ = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
+		end)
 	end)
-	it("add one item to empty list", function()
-		linked_list.head = mocks.empty_list.head
-		linked_list.nodes = mocks.empty_list.nodes
-		linked_list.push(mocks.node_to_add.value)
-		linked_list.randomseed()
-		local expected_address = linked_list.malloc()
-		local added_node = linked_list.nodes[expected_address]
-		assert.is_true(added_node ~= nil, constants.EXPECTED_NODE)
-		assert.are.equal(expected_address, linked_list.head, constants.EXPECTED_HEAD)
-		assert.are.equal(1, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
-		assert.is_true(added_node.next == nil, constants.EXPECTED_NEXT)
+	describe("one item list", function()
+		before_each(function()
+			linked_list.new()
+			local head, nodes = mocks.one_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
+		end)
+		it("head is set", function()
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
+		end)
+		it("new node next is correct", function()
+			local expected_next = linked_list.head
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(expected_next, node.next, constants.EXPECTED_HEAD)
+		end)
+		it("existing head is end of list", function()
+			local expected_last_node = linked_list.nodes[linked_list.head]
+			local _ = linked_list.push(mocks.node_to_add.value)
+			assert.is_nil(expected_last_node.next, constants.EXPECTED_NEXT)
+		end)
+		it("length is 2", function()
+			local _ = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
+		end)
 	end)
-	it("add to one item list", function()
-		linked_list.head = mocks.one_item_list.head
-		linked_list.nodes = mocks.one_item_list.nodes
-		local expected_next = linked_list.head
-		linked_list.push(mocks.node_to_add.value)
-		linked_list.randomseed()
-		local expected_address = linked_list.malloc()
-		local added_node = linked_list.nodes[expected_address]
-		assert.is_true(added_node ~= nil, constants.EXPECTED_NODE)
-		assert.are.equal(expected_address, linked_list.head, constants.EXPECTED_HEAD)
-		assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
-		assert.are.equal(expected_next, added_node.next, constants.EXPECTED_NEXT)
+	describe("two iten list", function()
+		before_each(function()
+			linked_list.new()
+			local head, nodes = mocks.two_item_list()
+			linked_list.head = head
+			linked_list.nodes = nodes
+		end)
+		it("head is set", function()
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
+		end)
+		it("new node next is correct", function()
+			local expected_next = linked_list.head
+			local node = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(expected_next, node.next, constants.EXPECTED_HEAD)
+		end)
+		it("last node unchanged", function()
+			local expected_last_node = linked_list.nodes[mocks.node2.address]
+			local _ = linked_list.push(mocks.node_to_add.value)
+			assert.is_nil(expected_last_node.next, constants.EXPECTED_NEXT)
+		end)
+		it("length is 3", function()
+			local _ = linked_list.push(mocks.node_to_add.value)
+			assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
+		end)
 	end)
-	it("add to two item list", function()
-		linked_list.head = mocks.two_item_list.head
-		linked_list.nodes = mocks.two_item_list.nodes
-		local expected_next = linked_list.head
-		linked_list.push(mocks.node_to_add.value)
-		linked_list.randomseed()
-		local expected_address = linked_list.malloc()
-		local added_node = linked_list.nodes[expected_address]
-		assert.is_true(added_node ~= nil, constants.EXPECTED_NODE)
-		assert.are.equal(expected_address, linked_list.head, constants.EXPECTED_HEAD)
-		assert.are.equal(3, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
-		assert.are.equal(expected_next, added_node.next, constants.EXPECTED_NEXT)
-	end)
-	--]====]
 end)

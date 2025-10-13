@@ -16,25 +16,27 @@ function M.new_node()
 	}
 end
 
-M.empty_list = {
-	head = nil,
-	nodes = {},
-}
+function M.empty_list()
+	local head = nil
+	local nodes = {}
+	return head, nodes
+end
 
-M.one_item_list = {
-	head = M.node1.address,
-	nodes = {
+function M.one_item_list()
+	local head = M.node1.address
+	local nodes = {
 		[M.node1.address] = {
 			next = nil,
 			address = M.node1.address,
 			value = M.node1.value,
 		},
-	},
-}
+	}
+	return head, nodes
+end
 
-M.two_item_list = {
-	head = M.node1.address,
-	nodes = {
+function M.two_item_list()
+	local head = M.node1.address
+	local nodes = {
 		[M.node1.address] = {
 			next = M.node2.address,
 			address = M.node1.address,
@@ -45,12 +47,13 @@ M.two_item_list = {
 			address = M.node2.address,
 			value = M.node2.value,
 		},
-	},
-}
+	}
+	return head, nodes
+end
 
-M.three_item_list = {
-	head = M.node1.address,
-	nodes = {
+function M.three_item_list()
+	local head = M.node1.address
+	local nodes = {
 		[M.node1.address] = {
 			next = M.node2.address,
 			address = M.node1.address,
@@ -66,7 +69,8 @@ M.three_item_list = {
 			address = M.node3.address,
 			value = M.node3.value,
 		},
-	},
-}
+	}
+	return head, nodes
+end
 
 return M
