@@ -10,5 +10,7 @@ M.EXPECTED_ADDRESS = "expected address"
 M.EXPECTED_VALUE = "expected value"
 M.EXPECTED_BOOLEAN = "expected boolean"
 M.EXPECTED_TAIL = "expected tail address"
+M.EXPECTED_SUCCESS = "expected success returned"
+M.EXPECTED_ERROR = "expected error returned"
 
 return M

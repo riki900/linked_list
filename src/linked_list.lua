@@ -2,6 +2,11 @@ local inspect = require("inspect")
 
 local M = {}
 
+M.ERRORS = {
+	EMPTY_LIST = "ERROR. Empty list",
+	NODE_NOT_FOUND = "ERROR. at node not found",
+}
+
 function M.alloc_node(value)
 	local node = {}
 	node.next = nil
@@ -35,6 +40,7 @@ function M.push(value)
 	end
 
 	M.nodes[node.address] = node
+	return node
 end
 
 function M.pop()
@@ -67,30 +73,36 @@ function M.push_right(value)
 		M.nodes[last_node_address].next = node.address
 	end
 	M.nodes[node.address] = node
+	return node
 end
 
 function M.insert_at(value, search_for)
 	local node = M.alloc_node(value)
 	if not M.head then
-		return false, "ERROR. Empty list"
+		return nil, M.ERRORS.EMPTY_LIST
 	end
 	local prior_address, at_address
 	prior_address = M.head
 	for address in M.traverse() do
 		if M.nodes[address].value == search_for then
 			at_address = address
+			break
 		else
 			prior_address = address
 		end
 	end
 	-- insertion at node not found
 	if not at_address then
-		return false, "ERROR. at node not found"
+		return nil, M.ERRORS.NODE_NOT_FOUND
+	end
+	if prior_address == M.head then
+		M.head = node.address
+	else
+		M.nodes[prior_address].next = node.address
 	end
 	node.next = at_address
-	M.nodes[prior_address].next = node.address
 	M.nodes[node.address] = node
-	return true, nil
+	return node, nil
 end
 
 function M.pop_right()
