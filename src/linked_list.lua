@@ -7,6 +7,13 @@ M.ERRORS = {
 	NODE_NOT_FOUND = "ERROR. at node not found",
 }
 
+---@alias node table
+---@alias address integer
+---@alias error string
+
+--- creates a new node instance
+---@param value any
+---@return node
 function M.alloc_node(value)
 	local node = {}
 	node.next = nil
@@ -16,20 +23,27 @@ function M.alloc_node(value)
 	return node
 end
 
+--- sets the randomseed
 function M.randomseed()
 	math.randomseed(32768)
 end
 
+--- generate a new address
+---@return integer
 function M.malloc()
 	return math.random(999, 9999)
 end
 
+--- initializes the linked list
 function M.new()
 	M.randomseed()
 	M.head = nil
 	M.nodes = {}
 end
 
+--- add a value at the head
+---@param value any
+---@return address
 function M.push(value)
 	local node = M.alloc_node(value)
 	if not M.head then
@@ -40,21 +54,25 @@ function M.push(value)
 	end
 
 	M.nodes[node.address] = node
-	return node
+	return node.address
 end
 
+--- pop from the head
+---@return any
 function M.pop()
 	if not M.head then
 		return nil
 	end
-	local old_head_address = M.head
-	local old_head_node = M.nodes[old_head_address]
-	M.head = old_head_node.next
-	M.nodes[old_head_address] = nil
+	local save_head_address = M.head
+	local value = M.nodes[save_head_address].value
+	M.head = M.nodes[save_head_address].next
+	M.nodes[save_head_address] = nil
 
-	return old_head_node
+	return value
 end
 
+--- get length of linked list
+---@return integer
 function M.length()
 	local length = 0
 	for _ in M.traverse() do
@@ -64,6 +82,9 @@ function M.length()
 	return length
 end
 
+--- add value at the end
+---@param value any
+---@return address
 function M.push_right(value)
 	local node = M.alloc_node(value)
 	if not M.head then
@@ -73,9 +94,13 @@ function M.push_right(value)
 		M.nodes[last_node_address].next = node.address
 	end
 	M.nodes[node.address] = node
-	return node
+	return node.address
 end
 
+--- insert value before the searched value
+---@param value any
+---@param search_for any
+---@return address | nil, error | nil
 function M.insert_at(value, search_for)
 	local node = M.alloc_node(value)
 	if not M.head then
@@ -102,9 +127,11 @@ function M.insert_at(value, search_for)
 	end
 	node.next = at_address
 	M.nodes[node.address] = node
-	return node, nil
+	return node.address, nil
 end
 
+--- pop from the end of the list
+---@return any | nil
 function M.pop_right()
 	-- empty list
 	if not M.head then
@@ -132,9 +159,11 @@ function M.pop_right()
 	end_node = M.nodes[end_address]
 	M.nodes[prior_address].next = nil
 	M.nodes[end_address] = nil
-	return end_node
+	return end_node.value
 end
 
+--- get address of last node
+---@return address | nil
 function M.get_last_node()
 	if not M.head then
 		return nil
@@ -148,6 +177,8 @@ function M.get_last_node()
 	return current_address
 end
 
+--- check if value is in list
+---@return boolean
 function M.is_in_list(search_for)
 	local node_address = M.find(search_for)
 	if node_address then
@@ -157,6 +188,8 @@ function M.is_in_list(search_for)
 	return false
 end
 
+--- find the value in the list
+---@return address | nil
 function M.find(search_for)
 	for address in M.traverse() do
 		if M.nodes[address].value == search_for then
@@ -167,9 +200,13 @@ function M.find(search_for)
 	return nil
 end
 
+--- walk the list
+---@return function
 function M.traverse()
 	local next_node_address = M.head
 	return function()
+		--- inner interator
+		---@return address | nil
 		local current_node = M.nodes[next_node_address]
 		if not current_node then
 			return nil

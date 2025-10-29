@@ -24,15 +24,17 @@ describe("linked_list.push(node)", function()
 			linked_list.nodes = nodes
 		end)
 		it("node is in list", function()
-			local node = linked_list.push(mocks.node_to_add.value)
-			assert.is_not_nil(linked_list.nodes[node.address], constants.EXPECTED_NODE)
+			local address = linked_list.push(mocks.node_to_add.value)
+			assert.is_not_nil(linked_list.nodes[address], constants.EXPECTED_NODE)
 		end)
 		it("node.next is nil", function()
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.is_nil(node.next, constants.EXPECTED_NEXT)
 		end)
 		it("head is set", function()
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
 		end)
 		it("length is 1", function()
@@ -48,12 +50,14 @@ describe("linked_list.push(node)", function()
 			linked_list.nodes = nodes
 		end)
 		it("head is set", function()
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
 		end)
 		it("new node next is correct", function()
 			local expected_next = linked_list.head
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.are.equal(expected_next, node.next, constants.EXPECTED_HEAD)
 		end)
 		it("existing head is end of list", function()
@@ -66,6 +70,7 @@ describe("linked_list.push(node)", function()
 			assert.are.equal(2, nodes_length(linked_list.nodes), constants.EXPECTED_LENGTH)
 		end)
 	end)
+
 	describe("two iten list", function()
 		before_each(function()
 			linked_list.new()
@@ -74,12 +79,14 @@ describe("linked_list.push(node)", function()
 			linked_list.nodes = nodes
 		end)
 		it("head is set", function()
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.are.equal(node.address, linked_list.head, constants.EXPECTED_HEAD)
 		end)
 		it("new node next is correct", function()
 			local expected_next = linked_list.head
-			local node = linked_list.push(mocks.node_to_add.value)
+			local address = linked_list.push(mocks.node_to_add.value)
+			local node = linked_list.nodes[address]
 			assert.are.equal(expected_next, node.next, constants.EXPECTED_HEAD)
 		end)
 		it("last node unchanged", function()
